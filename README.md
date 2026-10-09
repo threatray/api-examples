@@ -10,7 +10,7 @@ API reference: https://docs.threatray.com/reference.
 
 ## Requirements
 
-- Python 3.10+ (CI checks Python 3.10–3.14)
+- Python 3.10+ (CI matrix targets Python 3.10–3.14)
 - A Threatray API key (UI → *Settings → API keys*)
 
 ## Setup
