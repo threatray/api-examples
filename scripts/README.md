@@ -1,7 +1,6 @@
 # Example invocations
 
-All commands assume you have set `THREATRAY_API_KEY` and either `THREATRAY_REALM` (SaaS) or
-`THREATRAY_API_URL` (on-prem). See the [top-level README](../README.md) for setup.
+All commands assume you have set `THREATRAY_API_KEY` and `THREATRAY_API_URL`. See the [top-level README](../README.md) for setup.
 
 Run the scripts either with `uv run scripts/<script>.py ...` or from an activated venv with
 `python3 scripts/<script>.py ...`.
