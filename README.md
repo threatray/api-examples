@@ -39,7 +39,7 @@ All scripts read configuration from environment variables:
 | `THREATRAY_API_URL` | API URL of your Threatray instance. Required. Do not include `/v1`.         |
 
 For a hosted instance, the API URL is `https://api-<instance-name>.analysis.threatray.com`. The instance name is
-the first part of the address you log in at (`https://<instance-name>.analysis.threatray.com`). For an on-prem
+the first part of the Threatray web app's address after you sign in (`https://<instance-name>.analysis.threatray.com`). For an on-prem
 deployment, use its API URL.
 
 ```bash
