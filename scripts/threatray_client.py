@@ -3,10 +3,8 @@
 Configuration is read from environment variables:
 
 - ``THREATRAY_API_KEY`` — required.
-- ``THREATRAY_API_URL`` — base URL for on-prem / self-hosted deployments
-  (e.g. ``https://threatray.acme.internal``). Takes precedence if both are set.
-- ``THREATRAY_REALM`` — SaaS realm (e.g. ``acme``), expands to
-  ``https://api-{realm}.analysis.threatray.com``.
+- ``THREATRAY_API_URL`` — required. API URL of your Threatray instance, without
+  ``/v1`` (e.g. ``https://api-<instance-name>.analysis.threatray.com``).
 """
 
 import os
@@ -78,17 +76,15 @@ def get_client() -> Client:
 
     api_key = os.environ.get("THREATRAY_API_KEY")
     api_url = os.environ.get("THREATRAY_API_URL")
-    realm = os.environ.get("THREATRAY_REALM")
 
     if not api_key:
         raise ConfigError("THREATRAY_API_KEY is not set.")
 
-    if api_url:
-        resolved_url = api_url.rstrip("/")
-    elif realm:
-        resolved_url = f"https://api-{realm}.analysis.threatray.com"
-    else:
-        raise ConfigError("set THREATRAY_API_URL (on-prem) or THREATRAY_REALM (SaaS).")
+    if not api_url:
+        raise ConfigError(
+            "THREATRAY_API_URL is not set. Use the API URL of your Threatray instance, "
+            "e.g. https://api-<instance-name>.analysis.threatray.com."
+        )
 
-    _client = Client(api_key=api_key, api_url=resolved_url)
+    _client = Client(api_key=api_key, api_url=api_url.rstrip("/"))
     return _client

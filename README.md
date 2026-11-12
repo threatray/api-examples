@@ -33,27 +33,18 @@ pip install -e .
 
 All scripts read configuration from environment variables:
 
-| Env var               | Purpose                                                              |
-| --------------------- | -------------------------------------------------------------------- |
-| `THREATRAY_API_KEY`   | Your API key. Required.                                              |
-| `THREATRAY_REALM`     | SaaS realm (e.g. `acme` → `https://api-acme.analysis.threatray.com`). |
-| `THREATRAY_API_URL`   | Base URL for on-prem / self-hosted deployments. Do not include `/v1`. |
+| Env var             | Purpose                                                                     |
+| ------------------- | --------------------------------------------------------------------------- |
+| `THREATRAY_API_KEY` | Your API key. Required.                                                     |
+| `THREATRAY_API_URL` | API URL of your Threatray instance. Required. Do not include `/v1`.         |
 
-Set either `THREATRAY_REALM` (SaaS) or `THREATRAY_API_URL` (on-prem). If both are set, `THREATRAY_API_URL` wins.
-
-### SaaS
-
-```bash
-export THREATRAY_API_KEY="..."
-export THREATRAY_REALM="acme"
-uv run scripts/list_submissions.py
-```
-
-### On-prem
+For a hosted instance, the API URL is `https://api-<instance-name>.analysis.threatray.com`. The instance name is
+the first part of the Threatray web app's address after you sign in (`https://<instance-name>.analysis.threatray.com`). For an on-prem
+deployment, use its API URL.
 
 ```bash
-export THREATRAY_API_KEY="..."
-export THREATRAY_API_URL="https://threatray.acme.internal"
+export THREATRAY_API_KEY="<api-key>"
+export THREATRAY_API_URL="https://api-<instance-name>.analysis.threatray.com"
 uv run scripts/list_submissions.py
 ```
 
@@ -77,7 +68,7 @@ If you only need the two primitives (base URL + auth header):
 import requests
 
 headers = {"Authorization": f"Apikey {api_key}"}
-base_url = "https://api-<your-realm>.analysis.threatray.com"   # or your on-prem URL
+base_url = "https://api-<instance-name>.analysis.threatray.com"   # or your on-prem URL
 
 r = requests.get(f"{base_url}/v1/submissions", headers=headers)
 r.raise_for_status()
